@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Api RESTful para web MyMovie",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 10000",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "Bryan Badilla",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "connect-multiparty": "2.2.0",
+    "cors": "2.8.5",
+    "express": "^4.17.1",
+    "express-handlebars": "5.2.0",
+    "mssql": "6.2.3",
+    "sequelize": "6.3.5",
+    "tedious": "6.7.0",
+    "validator": "13.1.17"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
+    "mocha": "8.2.1",
+    "nodemon": "2.0.6"
+  }
+}
