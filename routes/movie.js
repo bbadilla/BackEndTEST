@@ -20,10 +20,13 @@ router.get('/', (req, res) =>
             'data': movies
         })
     })
-    .catch(() => res.json({
-        'status': 500,
-        'message': 'Getting movies failed',
-    }))
+    .catch((error) => {
+        console.log(error);
+        res.json({
+            'status': 500,
+            'message': 'Getting movies failed',
+        })
+    })
 )
 // Add a movie
 router.post('/add', (req, res) => {
@@ -89,13 +92,14 @@ router.post('/add', (req, res) => {
                 'message': 'Adding movies successfully',
                 // 'data': movies // Talvez no sea necesario, pero luego veremos, esto si se actualiza la tabla de una vez o se hace otro request
             }))
-            .catch(err =>
+            .catch(err => {
+                console.log(err);
                 res.json({
                     'status': 404,
                     'message': 'Faltan datos por enviar',
                     'error': err,
                 })
-            );
+            });
     } else {
         return res.json({
             'status': 500,
@@ -132,10 +136,13 @@ router.get('/search', (req, res) => {
             })
 
         })
-        .catch(() => res.json({
-            'status': 404,
-            'message': 'Faltan datos por enviar',
-        }))
+        .catch((error) => {
+            console.log(error);
+            res.json({
+                'status': 404,
+                'message': 'Faltan datos por enviar',
+            })
+        })
 });
 
 //Modify movie
@@ -168,9 +175,12 @@ router.put('/modify', (req, res) => {
         var validate_popularity = !validator.isEmpty(Popularity);
 
     } catch (err) {
+        console.log(err);
         return res.json({
             'status': 404,
-            'message': 'Faltan datos por enviar'
+            'message': 'Faltan datos por enviar',
+            'error': err,
+
         });
     }
 
@@ -227,10 +237,14 @@ router.get('/gender', (req, res) => {
             })
 
         })
-        .catch(() => res.json({
-            'status': 404,
-            'message': 'Faltan datos por enviar',
-        }))
+        .catch((error) => {
+            console.log(error);
+            res.json({
+                'status': 404,
+                'message': 'Faltan datos por enviar',
+                'error': err,
+            })
+        })
 });
 
 module.exports = router;
