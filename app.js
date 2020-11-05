@@ -1,9 +1,10 @@
 'use strict'
 
-const cors = require('cors'); 
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const Movie = require('./models/movie');
 
 // Database 
 const db = require('./config/database');
@@ -20,13 +21,35 @@ app.use(cors());
 const movie_routes = require('./routes/movie');
 const comment_routes = require('./routes/comment');
 
+app.get('/', (req, res) =>
+    Movie.findAll({
+        raw: true
+    })
+    .then(movies => {
+        res.json({
+            'status': 200,
+            'message': 'Getting movies successfully',
+            'data': movies
+        })
+    })
+    .catch((error) => {
+        console.log(error);
+        res.json({
+            'status': 500,
+            'message': 'Getting movies failed',
+        })
+    })
+)
+
 // Middlewares
-app.use(bodyParser.urlencoded({extended:false}));
+/* app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(bodyParser.json());
 
 // Routes
 app.use('/api', movie_routes);
-app.use('/api', comment_routes);
+app.use('/api', comment_routes); */
 
 const PORT = process.env.PORT || 5000;
 
