@@ -58,9 +58,11 @@ router.post('/add', (req, res) => {
 
 
     } catch (err) {
+        console.log(err);
         return res.json({
             'status': 404,
-            'message': 'Faltan datos por enviar'
+            'message': 'Faltan datos por enviar',
+            'error': err
         });
     }
 
