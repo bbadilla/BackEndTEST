@@ -1,5 +1,6 @@
 'use strict'
 
+const logic = ('../logic/functions');
 const validator = require('validator');
 const express = require('express');
 const router = express.Router();
@@ -8,6 +9,7 @@ const Movie = require('../models/movie');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
+// ################################################ Routes ################################# //
 // Get movie list
 router.get('/', (req, res) =>
     Movie.findAll({
@@ -46,79 +48,48 @@ router.post('/add', (req, res) => {
         Image
     } = req.body;
 
-    // Data Validation
-    try {
-        var validate_name = !validator.isEmpty(Name);
-        var validate_director = !validator.isEmpty(Director);
-        var validate_year = !validator.isEmpty(Year);
-        var validate_genre = !validator.isEmpty(Gender);
-        var validate_language = !validator.isEmpty(Language);
-        var validate_favorite = !validator.isEmpty(Favorite);
-        var validate_grade = !validator.isEmpty(Community_Score);
-        var validate_image = !validator.isEmpty(Image);
-        var validate_style = !validator.isEmpty(Style);
-        var validate_popularity = !validator.isEmpty(Popularity);
+    console.log(req.body);
 
-
-    } catch (err) {
-        console.log(err);
-        return res.json({
-            'status': 404,
-            'message': 'Faltan datos por enviar',
-            'error': err
-        });
-    }
-
-    if (validate_name && validate_director && validate_year && validate_genre && validate_language && validate_favorite && validate_grade && validate_image && validate_style && validate_popularity) {
-
-        //Insert into table
-        Movie.create({
-                ID,
-                Name,
-                Director,
-                Year,
-                Gender,
-                Language,
-                Favorite,
-                Community_Score,
-                IMDB,
-                Style,
-                MetaScore,
-                Popularity,
-                Image
+    //Insert into table
+    Movie.create({
+            ID,
+            Name,
+            Director,
+            Year,
+            Gender,
+            Language,
+            Favorite,
+            Community_Score,
+            IMDB,
+            Style,
+            MetaScore,
+            Popularity,
+            Image
+        })
+        .then(movie => res.json({
+            'status': 200,
+            'message': 'Adding movies successfully',
+            'data': movie,
+        }))
+        .catch(err => {
+            console.log(err);
+            res.json({
+                'status': 404,
+                'message': 'Faltan datos por enviar',
+                'error': err,
             })
-            .then(movie => res.json({
-                'status': 200,
-                'message': 'Adding movies successfully',
-                // 'data': movies // Talvez no sea necesario, pero luego veremos, esto si se actualiza la tabla de una vez o se hace otro request
-            }))
-            .catch(err => {
-                console.log(err);
-                res.json({
-                    'status': 404,
-                    'message': 'Faltan datos por enviar',
-                    'error': err,
-                })
-            });
-    } else {
-        return res.json({
-            'status': 500,
-            'message': 'Los datos no son validos',
         });
-    }
 });
 
 // Search for name
-router.get('/search', (req, res) => {
-    let {
-        Name
-    } = req.body;
+router.get('/search/:data', (req, res) => {
+    var data_name = req.params.data;
 
     Movie.findAll({
             raw: true,
             where: {
                 Name: {
-                    [Op.like]: '%' + Name + '%'
+                    [Op.like]: '%' + data_name + '%'
                 }
             }
         })
@@ -210,41 +181,68 @@ router.put('/modify', (req, res) => {
     }
 });
 // Search by gender
-router.get('/gender', (req, res) => {
-    let {
-        Gender
-    } = req.body;
+router.get('/gender/:data', async (req, res) => {
+    var data_gender = req.params.data;
+    var avarage = [];
+    var order_movies = []
+    console.log(data_gender);
 
-    Movie.findAll({
-            raw: true,
-            where: {
-                Gender: {
-                    [Op.like]: '%' + Gender + '%'
-                }
-            }
-        })
-        .then(movies => {
-            if (movies.length == 0) {
-                res.json({
-                    'status': 204,
-                    'message': '0 movies found',
-                })
-            }
-            res.json({
-                'status': 200,
-                'message': 'Searching movies successfully',
-                'data': movies
-            })
 
+    var result = await Movie.findAll({
+        raw: true,
+        where: {
+            Gender: {
+                [Op.like]: '%' + data_gender + '%'
+            }
+        }
+    });
+
+    var p1 = 30; var p2 = 20; var p3 = 10; var p4 = 30; var p5 = 10;
+    var points = [p1, p2, p3, p4, p5];
+
+    // ################################################################################
+    for (var i = 0; i < result.length; i++){
+        var grade = 0;
+        grade += result[i].Community_Score * points[0]/10;
+        grade += result[i].IMDB * points[1]/10;
+        grade += result[i].MetaScore * points[2]/10;
+        grade += result[i].Favorite * points[3];
+        grade += result[i].Popularity * (points[4]/100);
+
+        avarage[i] = grade;
+    }   
+
+    for (var i = 0; i < result.length; i++){
+        for(var j = 0 ; j < result.length - i - 1; j++){ 
+            if (avarage[j] < avarage[j + 1]) {
+                // swap
+                var temp = avarage[j];
+                avarage[j] = avarage[j+1];
+                avarage[j + 1] = temp;
+
+                var temp1 = result[j];
+                result[j] = result[j+1];
+                result[j + 1] = temp1;
+            }
+        } 
+    }
+    result = result.slice(0,10);
+
+    // ################################################################################
+
+    if (result.length == 0){
+        res.json({
+            'status': 204,
+            'message': '0 movies found',
         })
-        .catch((error) => {
-            console.log(error);
-            res.json({
-                'status': 404,
-                'message': 'Faltan datos por enviar',
-                'error': err,
-            })
+    } else {
+        res.json({
+            'status': 200,
+            'message': 'Searching movies successfully',
+            'data': result
         })
+    }
 });
+
 
 module.exports = router;
