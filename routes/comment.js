@@ -10,27 +10,33 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 // Insert comment
-router.post('/add_comment/:comment/:score/:id_movie', (req, res) => {
-    var data_comment = req.params.comment;
-    var data_score = req.params.score;
-    var data_id_movie = req.params.id_movie;
+router.post('/add_comment', (req, res) => {
 
-    console.log(req.params); 
+    console.log(req.params);
 
-    db.query(`InsertComment @comment= '${data_comment}', @score= ${data_score}, @movieID= ${data_id_movie};`)
-    .then(results => {
-        res.json({
-            'status': 200,
-            'message': 'Add comment successfully',
+    let {
+        comment,
+        score,
+        id_movie,
+    } = req.body;
+
+    console.log(req.body);
+
+
+    db.query(`InsertComment @comment= '${comment}', @score= ${score}, @movieID= ${id_movie};`)
+        .then(() => {
+            res.json({
+                'status': 200,
+                'message': 'Add comment successfully'
+            })
         })
-    })
-    .catch((error) => {
-        console.log(error);
-        res.json({
-            'status': 404,
-            'message': 'Error insertando el comentario',
+        .catch((error) => {
+            console.log(error);
+            res.json({
+                'status': 404,
+                'message': 'Error insertando el comentario',
+            })
         })
-    })
 })
 
 // Get comments
@@ -38,20 +44,20 @@ router.get('/get_comments/:movie_id', (req, res) => {
     var data_movie_id = req.params.movie_id;
     db.query(`getMovieScore @movieID= ${data_movie_id};`)
     db.query(`getComments @movieID= ${data_movie_id};`)
-    .then(results => {
-        res.json({
-            'status': 200,
-            'message': 'Get comment successfully',
-            'data': results
+        .then(results => {
+            res.json({
+                'status': 200,
+                'message': 'Get comment successfully',
+                'data': results
+            })
         })
-    })
-    .catch((error) => {
-        console.log(error);
-        res.json({
-            'status': 404,
-            'message': 'Error obteniendo comentarios',
+        .catch((error) => {
+            console.log(error);
+            res.json({
+                'status': 404,
+                'message': 'Error obteniendo comentarios',
+            })
         })
-    })
 })
 
 module.exports = router;
