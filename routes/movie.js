@@ -230,6 +230,11 @@ router.get('/gender/:data/:p1/:p2/:p3/:p4/:p5', async (req, res) => {
         } 
     }
     result = result.slice(0,10);
+    avarage = avarage.slice(0,10);
+    
+    result.forEach((element, index) => {
+        element['Avarage'] = avarage[index];
+    });
 
     // ################################################################################
 
