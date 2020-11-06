@@ -1,0 +1,327 @@
+{
+	"info": {
+		"_postman_id": "2c382207-29e2-4112-9bcb-df8b9a4ee79d",
+		"name": "SOA41D",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Insertar pelicula",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "Name",
+							"value": "Avengers",
+							"type": "text"
+						},
+						{
+							"key": "Director",
+							"value": "Joss Whedon",
+							"type": "text"
+						},
+						{
+							"key": "Year",
+							"value": "2012",
+							"type": "text"
+						},
+						{
+							"key": "Gender",
+							"value": "Accion",
+							"type": "text"
+						},
+						{
+							"key": "Language",
+							"value": "Inglés",
+							"type": "text"
+						},
+						{
+							"key": "Community_Score",
+							"value": "8",
+							"type": "text"
+						},
+						{
+							"key": "Style",
+							"value": "heroes, comics",
+							"type": "text"
+						},
+						{
+							"key": "Popularity",
+							"value": "87",
+							"type": "text"
+						},
+						{
+							"key": "Image",
+							"value": "https://i.pinimg.com/originals/47/2c/fd/472cfd0a1886fb3d408a7b4843e8edfd.jpg",
+							"type": "text"
+						},
+						{
+							"key": "ID",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "Favorite",
+							"value": "false",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/add",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar pelicula",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "Name",
+							"value": "Batman: el caballero de la noche asciende",
+							"type": "text"
+						},
+						{
+							"key": "Director",
+							"value": "Christopher Nolan",
+							"type": "text"
+						},
+						{
+							"key": "Year",
+							"value": "2012",
+							"type": "text"
+						},
+						{
+							"key": "Gender",
+							"value": "Accion",
+							"type": "text"
+						},
+						{
+							"key": "Language",
+							"value": "Inglés",
+							"type": "text"
+						},
+						{
+							"key": "Community_Score",
+							"value": "8",
+							"type": "text"
+						},
+						{
+							"key": "Style",
+							"value": "heroes",
+							"type": "text"
+						},
+						{
+							"key": "Popularity",
+							"value": "90",
+							"type": "text"
+						},
+						{
+							"key": "Image",
+							"value": "batman.png",
+							"type": "text"
+						},
+						{
+							"key": "ID",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "Favorite",
+							"value": "false",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/modify",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"modify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Peliculas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Pelicula por nombre",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "Name",
+							"value": "Van",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/search",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Pelicula por genero",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "Gender",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/api/gender/a/30/30/10/10/20",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"gender",
+						"a",
+						"30",
+						"30",
+						"10",
+						"10",
+						"20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insertar comentarios",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "NameMovie",
+							"value": "Van",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/api/add_comment/Peliculabuena/10/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"add_comment",
+						"Peliculabuena",
+						"10",
+						"1"
+					],
+					"query": [
+						{
+							"key": "NameMovie",
+							"value": "bat",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener comentarios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/get_comments/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"get_comments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
