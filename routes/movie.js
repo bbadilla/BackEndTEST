@@ -181,12 +181,18 @@ router.put('/modify', (req, res) => {
     }
 });
 // Search by gender
-router.get('/gender/:data', async (req, res) => {
+router.get('/gender/:data/:p1/:p2/:p3/:p4/:p5', async (req, res) => {
     var data_gender = req.params.data;
-    var avarage = [];
-    var order_movies = []
-    console.log(data_gender);
+    var data_p1 = req.params.p1;
+    var data_p2 = req.params.p2;
+    var data_p3 = req.params.p3;
+    var data_p4 = req.params.p4;
+    var data_p5 = req.params.p5;
 
+
+    var avarage = [];
+
+    console.log(req.params);
 
     var result = await Movie.findAll({
         raw: true,
@@ -197,17 +203,14 @@ router.get('/gender/:data', async (req, res) => {
         }
     });
 
-    var p1 = 30; var p2 = 20; var p3 = 10; var p4 = 30; var p5 = 10;
-    var points = [p1, p2, p3, p4, p5];
-
     // ################################################################################
     for (var i = 0; i < result.length; i++){
         var grade = 0;
-        grade += result[i].Community_Score * points[0]/10;
-        grade += result[i].IMDB * points[1]/10;
-        grade += result[i].MetaScore * points[2]/10;
-        grade += result[i].Favorite * points[3];
-        grade += result[i].Popularity * (points[4]/100);
+        grade += result[i].Community_Score * data_p1/10;
+        grade += result[i].IMDB * data_p2/10;
+        grade += result[i].MetaScore * data_p3/10;
+        grade += result[i].Favorite * data_p4;
+        grade += result[i].Popularity * (data_p5/100);
 
         avarage[i] = grade;
     }   
