@@ -129,56 +129,30 @@ router.put('/modify', (req, res) => {
         IMDB,
         Style,
         MetaScore,
-        Popularity,
         Image
     } = req.body;
 
-    // Data Validation
-    try {
-        var validate_name = !validator.isEmpty(Name);
-        var validate_director = !validator.isEmpty(Director);
-        var validate_year = !validator.isEmpty(Year);
-        var validate_genre = !validator.isEmpty(Gender);
-        var validate_language = !validator.isEmpty(Language);
-        var validate_favorite = !validator.isEmpty(Favorite);
-        var validate_image = !validator.isEmpty(Image);
-        var validate_style = !validator.isEmpty(Style);
-        var validate_popularity = !validator.isEmpty(Popularity);
-
-    } catch (err) {
-        console.log(err);
-        return res.json({
-            'status': 404,
-            'message': 'Faltan datos por enviar',
-            'error': err,
-
-        });
-    }
-
-    if (validate_name && validate_director && validate_year && validate_genre && validate_language && validate_favorite && validate_image && validate_style && validate_popularity) {
-        // Update Arguments 
-        // Posibles cambios con respecto a la vista web
-        Movie.update({
-                Name: req.body.Name,
-                Director: req.body.Director,
-                Year: req.body.Year,
-                Gender: req.body.Gender,
-                Language: req.body.Language,
-                Favorite: req.body.Favorite,
-                IMDB: req.body.IMDB,
-                Style: req.body.Style,
-                MetaScore: req.body.MetaScore,
-                Image: req.body.Image
-            }, {
-                where: {
-                    ID: req.body.ID
-                }
-            })
-            .then(movie => res.json({
-                'status': 200,
-                'message': 'Adding movies successfully',
-            }))
-    }
+    Movie.update({
+            Name: Name,
+            Director: Director,
+            Year: Year,
+            Gender: Gender,
+            Language: Language,
+            Favorite: Favorite,
+            IMDB: IMDB,
+            Style: Style,
+            MetaScore: MetaScore,
+            Image: Image
+        }, {
+            where: {
+                ID: ID
+            }
+        })
+        .then(() => res.json({
+            'status': 200,
+            'message': 'Update movies successfully',
+            'data': req.body
+        }))
 });
 // Search by gender
 router.get('/gender/:data/:p1/:p2/:p3/:p4/:p5', async (req, res) => {
