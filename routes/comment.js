@@ -10,18 +10,18 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 // Insert comment
-router.post('/add_comment/:comment/:score/:id_movie', (req, res) => {
-    var data_comment = req.params.comment;
-    var data_score = req.params.score;
-    var data_id_movie = req.params.id_movie;
+router.post('/add_comment', (req, res) => {
 
-    console.log(req.params); 
+    let {
+        comment,
+        score,
+        id_movie,
+    } = req.body;
 
-    //  stored procedures
-    db.query(`InsertComment @comment= '${data_comment}', @score= ${data_score}, @movieID= ${data_id_movie};`)
-    db.query(`getMovieScore @movieID= ${data_id_movie};`)
+    db.query(`InsertComment @comment= '${comment}', @score= ${score}, @movieID= ${id_movie};`)
+    db.query(`getMovieScore @movieID= ${id_movie};`)
     db.query(`updatePopularity`)
-    .then(results => {
+    .then(() => {
         res.json({
             'status': 200,
             'message': 'Add comment successfully',
