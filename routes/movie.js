@@ -27,6 +27,7 @@ router.get('/', (req, res) =>
         res.json({
             'status': 500,
             'message': 'Getting movies failed',
+            'error': error
         })
     })
 )
