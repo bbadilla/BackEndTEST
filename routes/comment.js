@@ -11,72 +11,49 @@ const Op = Sequelize.Op;
 
 // Insert comment
 router.post('/add_comment', (req, res) => {
+
     let {
-        NameMovie,
-        ID,
-        Body,
-        Score,
-        MovieID,
-        id_movie
+        comment,
+        score,
+        id_movie,
     } = req.body;
 
-    Movie.findOne({
-        attributes: ['ID'],
-        where: {
-            Name: {
-                [Op.like]: '%' + NameMovie + '%'
-            }
-        }
-    })
-    .then(movies => {
-        if (movies.length == 0) {
-            res.json({
-                'status': 204,
-                'message': '0 movies found',
-            })
-        }
+    db.query(`InsertComment @comment= '${comment}', @score= ${score}, @movieID= ${id_movie};`)
+    db.query(`getMovieScore @movieID= ${id_movie};`)
+    db.query(`updatePopularity`)
+    .then(() => {
         res.json({
             'status': 200,
-            'message': 'Searching movies successfully',
-            'data': movies
+            'message': 'Add comment successfully',
         })
-
     })
-    .catch(() => res.json({
-        'status': 404,
-        'message': 'Faltan datos por enviar',
-    }))
+    .catch((error) => {
+        console.log(error);
+        res.json({
+            'status': 404,
+            'message': 'Error insertando el comentario',
+        })
+    })
+})
 
-    // // Data Validation
-    // try {
-    //     var validate_body = !validator.isEmpty(Body);
-    //     var validate_score = !validator.isEmpty(Score);
-
-    // } catch (err) {
-    //     return res.json({
-    //         'status': 404,
-    //         'message': 'Faltan datos por enviar'
-    //     });
-    // }
-
-    // if (validate_body && validate_score){
-    //     Comment.create({
-    //         ID: req.body.ID,
-    //         Body: req.body.Body,
-    //         Score: req.body.Score,
-    //         MovieID: req.body.MovieID,
-    //     }, {
-    //         where: {
-    //             ID : req.body.ID
-    //         }
-    //     })
-    //     .then(comment => res.json({
-    //         'status': 200,
-    //         'message': 'Adding movies successfully',
-    //     }))
-
-    // }
-
+// Get comments
+router.get('/get_comments/:movie_id', (req, res) => {
+    var data_movie_id = req.params.movie_id;
+    db.query(`getComments @movieID= ${data_movie_id};`)
+    .then(results => {
+        res.json({
+            'status': 200,
+            'message': 'Get comment successfully',
+            'data': results
+        })
+    })
+    .catch((error) => {
+        console.log(error);
+        res.json({
+            'status': 404,
+            'message': 'Error obteniendo comentarios',
+        })
+    })
 })
 
 module.exports = router;
