@@ -45,6 +45,7 @@ describe("Test 3!", () => {
         expect(res.body.status).to.equals(200);
         expect(res.body.message).to.equals("Searching movies successfully");
         done();
+        process.exit(0);
       });
   });
 });
