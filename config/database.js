@@ -6,6 +6,7 @@ module.exports = new Sequelize('mymovie', 'soa41d', 'soad1234@',{
     host: 'mymovie.database.windows.net',
     dialect: 'mssql',
     operatorAliases: false,
+    omitNull: true,
     define:{
         timestamps: false,
         freezeTableName: true
