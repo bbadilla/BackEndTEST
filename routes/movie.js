@@ -34,7 +34,6 @@ router.get('/', (req, res) =>
 // Add a movie
 router.post('/add', (req, res) => {
     let {
-        ID,
         Name,
         Director,
         Year,
@@ -53,7 +52,6 @@ router.post('/add', (req, res) => {
 
     //Insert into table
     Movie.create({
-            ID,
             Name,
             Director,
             Year,
