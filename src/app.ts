@@ -9,8 +9,7 @@ loadContainer(app);
 
 //Controllers
 app.use(loadControllers(
-    'controllers/*.ts',
-    { cwd: __dirname }
+    'src/controllers/movie.controller.ts'
 ));
 
 export { app };
