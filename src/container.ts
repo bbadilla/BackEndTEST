@@ -1,3 +1,5 @@
+import { MovieService } from './services/movie.service';
+import { MovieMssqlRepository } from './services/repositories/impl/mssql/movie.repository';
 import { TestService } from './services/test.service';
 import express = require('express');
 import { createContainer, asClass } from "awilix";
@@ -10,8 +12,10 @@ export default (app: express.Application) => {
 
     container.register({
         // repositories
-        
+        movieRepository: asClass(MovieMssqlRepository).scoped(),
+
         // services
+        movieService: asClass(MovieService).scoped(),
         testService: asClass(TestService).scoped()
     });
 
