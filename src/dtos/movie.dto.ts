@@ -13,6 +13,7 @@ export interface MovieCreateDto{
     Image: string;
 }
 
+
 export interface MovieUpdateDto{
     Name: string;
     Director: string;
