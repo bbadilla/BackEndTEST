@@ -1,4 +1,4 @@
-interface MovieCreateDto{
+export interface MovieCreateDto{
     Name: string;
     Director: string;
     Year: number;
@@ -13,7 +13,8 @@ interface MovieCreateDto{
     Image: string;
 }
 
-interface MovieUpdateDto{
+
+export interface MovieUpdateDto{
     Name: string;
     Director: string;
     Year: number;
