@@ -1,7 +1,6 @@
 import { MovieRepository } from './../../movie.repository';
 import connector from "../../../../common/persistence/mssql.persistence";
 import { Movie } from "../../domain/movie";
-import e from 'express';
 
 export class MovieMssqlRepository implements MovieRepository{
     

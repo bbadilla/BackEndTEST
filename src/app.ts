@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 //Controllers
 app.use(loadControllers(
-    'src/controllers/movie.controller.ts'
+    'src/controllers/*.controller.ts'
 ));
 
 export { app };
