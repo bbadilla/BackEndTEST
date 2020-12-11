@@ -30,7 +30,7 @@ export class MovieController{
         console.log(req.body);
         res.json({
             'status': 200,
-            'message': 'Adding movies successfully',
+            'message': 'Get movies successfully',
             'data': await this.movieService.GetMovie(name)
         });
     }
