@@ -15,6 +15,7 @@ export interface MovieCreateDto{
 
 
 export interface MovieUpdateDto{
+    ID: number;
     Name: string;
     Director: string;
     Year: number;
