@@ -36,7 +36,6 @@ export class MovieMssqlRepository implements MovieRepository{
 
     public async UpdateMovie(entry: Movie): Promise<void>{
         const pool = await connector;
-
         await pool.query
             `UPDATE Movie
             SET Name = ${entry.Name},
@@ -49,7 +48,7 @@ export class MovieMssqlRepository implements MovieRepository{
                 Style = ${entry.Style}, 
                 MetaScore = ${entry.MetaScore}, 
                 Image = ${entry.Image}
-            WHERE ID = ${entry.ID}`
+            WHERE ID = ${entry.ID};`
     }
 
     public async GetMovieGender(gender: string): Promise<Movie[] | null>{

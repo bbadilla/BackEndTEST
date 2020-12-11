@@ -1,6 +1,6 @@
 import { Movie } from "../../services/repositories/domain/movie";
 
-export function calculate(d1: number, d2:number, d3:number, d4:number, d5:number, result: Movie[] ){
+export async function calculate(d1: number, d2:number, d3:number, d4:number, d5:number, result: Movie[] ){
     let avarage: string | any[] = [];
 
     for (var i = 0; i < result.length; i++){
@@ -32,6 +32,8 @@ export function calculate(d1: number, d2:number, d3:number, d4:number, d5:number
     }
     result = result.slice(0,10);
     avarage = avarage.slice(0,10);
+
+    return result;
     
     // result.forEach((element, index) => {
     //     element['Avarage'] = avarage[index];
