@@ -28,9 +28,9 @@ export class CommentController{
     public async PostComment (req: Request, res: Response){
         var params = req.body;
         var post_params: CommentCreateDto = {
-            Body: params.Body,
-            Score: params.Score,
-            MovieID: params.MovieID
+            Body: params.comment,
+            Score: params.score,
+            MovieID: params.id_movie
         }
         console.log(post_params);
 
