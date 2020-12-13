@@ -32,11 +32,11 @@ export async function calculate(d1: number, d2:number, d3:number, d4:number, d5:
     }
     result = result.slice(0,10);
     avarage = avarage.slice(0,10);
+    
+    result.forEach((element, index) => {
+        element['Avarage'] = avarage[index];
+    });
 
     return result;
-    
-    // result.forEach((element, index) => {
-    //     element['Avarage'] = avarage[index];
-    // });
 
 }
