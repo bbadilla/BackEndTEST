@@ -18,7 +18,7 @@ export class CommentController{
         res.json({
             'status': 200,
             'message': 'Get comment successfully',
-            'data': await this.commentService.GetComment(id)
+            'data': await this.commentService.GetComment(id) as unknown as CommentCreateDto
         });
     }
 

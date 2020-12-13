@@ -2,7 +2,7 @@ import { MovieService } from './../services/movie.service';
 import { Request, Response } from 'express';
 import { GET, POST, PUT, route } from "awilix-express";
 import { calculate } from "./../common/utilities/calculate.function"
-import { MovieCreateDto, MovieUpdateDto } from '../dtos/movie.dto';
+import { MovieGetDto, MovieCreateDto, MovieUpdateDto } from '../dtos/movie.dto';
 
 
 @route('/api/')
@@ -18,7 +18,7 @@ export class MovieController{
         res.json({
             'status': 200,
             'message': 'Getting movies successfully',
-            'data': await this.movieService.GetAllMovies()
+            'data': await this.movieService.GetAllMovies() as unknown as MovieGetDto
         })
     }
 
@@ -31,7 +31,7 @@ export class MovieController{
         res.json({
             'status': 200,
             'message': 'Get movies successfully',
-            'data': await this.movieService.GetMovie(name)
+            'data': await this.movieService.GetMovie(name) as unknown as MovieGetDto
         });
     }
 
@@ -100,7 +100,7 @@ export class MovieController{
         
         let result = await this.movieService.GetMovieGender(gender);
 
-        const calculte_result = await calculate(d1, d2, d3, d4, d5, result);
+        const calculte_result = await calculate(d1, d2, d3, d4, d5, result) as unknown as MovieGetDto;
 
         if (result.length == 0){
             res.json({

@@ -12,4 +12,5 @@ export interface Movie {
     MetaScore: number;
     Popularity: number;
     Image: string;
+    Avarage:number;
 }
