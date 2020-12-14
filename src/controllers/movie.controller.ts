@@ -15,6 +15,7 @@ export class MovieController{
     // Get all movies
     @GET()
     public async GetAllMovies (req: Request, res: Response){
+
         const result = await this.movieService.GetAllMovies();
 
         if (result.length) {
