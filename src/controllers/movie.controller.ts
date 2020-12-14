@@ -29,7 +29,6 @@ export class MovieController{
                 'message': 'Error of getting movies',
             })
         }
-        
     }
 
     // Get movie by name
