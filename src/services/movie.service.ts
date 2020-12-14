@@ -38,7 +38,7 @@ export class MovieService{
 
     public async GetMovieGender(gender:string): Promise< Movie[]| null >{
         if(gender != null){
-            return await this.movieRepository.GetMovie(gender);
+            return await this.movieRepository.GetMovieGender(gender);
         } else {
             throw new ApplicationException("Please send a gender");
         }
