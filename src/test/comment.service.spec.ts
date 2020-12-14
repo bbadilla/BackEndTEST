@@ -9,7 +9,10 @@ const commentService = new CommentService(
     new MovieMockRepository()
 );
 
+// Unit test of Comment Service
 describe('Comment Service', () => {
+
+    // Get comments
     describe('Get method of comment', () => {
         it('Get comments of specific movie', async () => {
             await commentService.GetComment(1);
@@ -24,6 +27,7 @@ describe('Comment Service', () => {
         })
     })
 
+    // Insert Comments
     describe('Insert method of comment', () => {
         it('Insert comment of movie', async () => {
             await commentService.PostComment({

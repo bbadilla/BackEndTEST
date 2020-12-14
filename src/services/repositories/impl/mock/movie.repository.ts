@@ -1,15 +1,18 @@
-import { MovieRepository } from './../../movie.repository';
+import { IMovieRepository } from '../../imovie.repository';
 import db from "../../../../common/persistence/mock.persistence";
 import { Movie } from "../../domain/movie";
 
-export class MovieMockRepository implements MovieRepository{
+// Mock Repository of Movies
+export class MovieMockRepository implements IMovieRepository{
     
+    // Get all movies from memory
     public async GetAllMovies(): Promise<Movie[]>{
         const table = db.movie as Movie[];
         return Object.assign([...table]);
         
     }
 
+    // Get specific movie by name from memory
     public async GetMovie(name: string): Promise<Movie[] | null>{
         const table = db.movie as Movie[];
         const result = table.find(x => x.Name == name);
@@ -21,6 +24,7 @@ export class MovieMockRepository implements MovieRepository{
         return null;
     }
 
+    // Get specific movie by id from memory
     public async GetMovieID(id: number): Promise<Movie[] | null>{
         const table = db.movie as Movie[];
         const result = table.find(x => x.ID == id);
@@ -32,6 +36,7 @@ export class MovieMockRepository implements MovieRepository{
         return null;
     }
 
+    // Create a new movie in memory
     public async PostMovie(entry: Movie ): Promise<void> {
         const table = db.movie as Movie[];
         db.movieID++;
@@ -54,6 +59,7 @@ export class MovieMockRepository implements MovieRepository{
 
     }
 
+    // Update movie from memory
     public async UpdateMovie(entry: Movie): Promise<void>{
         const table = db.movie as Movie[];
         const originalEntry = table.find(x => x.ID == entry.ID);
@@ -73,6 +79,7 @@ export class MovieMockRepository implements MovieRepository{
         
     }
 
+    // Get movie by gender from memory
     public async GetMovieGender(gender: string): Promise<Movie[] | null>{
         const table = db.movie as Movie[];
         const result = table.find(x => x.Gender == gender);

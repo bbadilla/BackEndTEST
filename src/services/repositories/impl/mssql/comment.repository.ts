@@ -2,8 +2,10 @@ import { ICommentRepository } from './../../icomment.repository';
 import connector from "../../../../common/persistence/mssql.persistence";
 import { Comment } from "../../domain/comment";
 
+// Repository of comment for DB
 export class CommentMssqlRepository implements ICommentRepository{
 
+    // Add new comments in DB
     public async PostComment(entry: Comment ): Promise<void> {
         const pool = await connector;
         console.log(entry.Body);
@@ -12,6 +14,7 @@ export class CommentMssqlRepository implements ICommentRepository{
         await pool.query`updatePopularity;`
     }
 
+    // Get Comments from DB
     public async GetComment(movieId: number): Promise<Comment[] | null>{
         const pool = await connector;
 

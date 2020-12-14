@@ -1,9 +1,11 @@
-import { MovieRepository } from './../../movie.repository';
+import { IMovieRepository } from '../../imovie.repository';
 import connector from "../../../../common/persistence/mssql.persistence";
 import { Movie } from "../../domain/movie";
 
-export class MovieMssqlRepository implements MovieRepository{
+// Repository of Movie for MSSQL
+export class MovieMssqlRepository implements IMovieRepository{
     
+    // Get movies from DB
     public async GetAllMovies(): Promise<Movie[]>{
         const pool = await connector;
         const result = await pool.query`SELECT * FROM Movie ORDER BY ID DESC`;
@@ -11,6 +13,7 @@ export class MovieMssqlRepository implements MovieRepository{
         return result.recordset;
     }
 
+    // Get specific movie by name from DB
     public async GetMovie(name: string): Promise<Movie[] | null>{
         const pool = await connector;
         const result = await pool.query`SELECT * FROM Movie WHERE Name LIKE '%' + ${name} + '%'`;
@@ -22,6 +25,7 @@ export class MovieMssqlRepository implements MovieRepository{
         return null;
     }
 
+    // Get specific movie by id from DB
     public async GetMovieID(id: number): Promise<Movie[] | null>{
         const pool = await connector;
         const result = await pool.query`SELECT * FROM Movie WHERE ID = ${id} `;
@@ -33,6 +37,7 @@ export class MovieMssqlRepository implements MovieRepository{
         return null;
     }
 
+    // Create new movie in DB
     public async PostMovie(entry: Movie ): Promise<void> {
         const pool = await connector;
         
@@ -44,6 +49,7 @@ export class MovieMssqlRepository implements MovieRepository{
                     ${entry.MetaScore}, ${entry.Popularity}, ${entry.Image})`
     }
 
+    // Update movie from DB
     public async UpdateMovie(entry: Movie): Promise<void>{
         const pool = await connector;
         await pool.query
@@ -61,6 +67,7 @@ export class MovieMssqlRepository implements MovieRepository{
             WHERE ID = ${entry.ID};`
     }
 
+    // Get movie by gender from DB
     public async GetMovieGender(gender: string): Promise<Movie[] | null>{
         const pool = await connector;
         const result = await pool.query`SELECT * FROM Movie WHERE Gender LIKE '%' + ${gender} + '%'`;

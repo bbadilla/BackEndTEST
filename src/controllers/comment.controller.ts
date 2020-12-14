@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { GET, POST, PUT, route } from "awilix-express";
 import { CommentCreateDto } from '../dtos/comment.dto';
 
+// Controller of Comment Actions
 @route('/api/')
 export class CommentController{
     constructor(
@@ -32,8 +33,7 @@ export class CommentController{
             Score: params.score,
             MovieID: params.id_movie
         }
-        console.log(post_params);
-
+        
         await this.commentService.PostComment(post_params);
 
         res.json({

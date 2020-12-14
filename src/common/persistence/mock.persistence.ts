@@ -1,19 +1,19 @@
-import { Movie } from './../../services/repositories/domain/movie';
+// Mock Objects
 const db = {
     movie: [{
-        "ID": 1,
-        "Name": "WALL-E",
-        "Director": "JoseK21",
-        "Year": 2008,
-        "Gender": "Action",
-        "Language": "English",
-        "Favorite": true,
-        "Community_Score": 7.9,
-        "IMDB": 8.4,
-        "Style": "Classical Hollywood cinema",
-        "MetaScore": 9,
-        "Popularity": 45,
-        "Image": "https://upload.wikimedia.org/wikipedia/en/c/c2/WALL-Eposter.jpg"
+            "ID": 1,
+            "Name": "WALL-E",
+            "Director": "JoseK21",
+            "Year": 2008,
+            "Gender": "Action",
+            "Language": "English",
+            "Favorite": true,
+            "Community_Score": 7.9,
+            "IMDB": 8.4,
+            "Style": "Classical Hollywood cinema",
+            "MetaScore": 9,
+            "Popularity": 45,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/c/c2/WALL-Eposter.jpg"
         },
         {
             "ID": 2,

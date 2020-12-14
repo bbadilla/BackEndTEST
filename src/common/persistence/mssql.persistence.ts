@@ -1,5 +1,6 @@
 import { ConnectionPool } from "mssql";
 
+// Connection DB
 let config = {
     server: 'mymovie.database.windows.net',
     user: 'soa41d',

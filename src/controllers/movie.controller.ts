@@ -4,7 +4,7 @@ import { GET, POST, PUT, route } from "awilix-express";
 import { calculate } from "./../common/utilities/calculate.function"
 import { MovieGetDto, MovieCreateDto, MovieUpdateDto } from '../dtos/movie.dto';
 
-
+// Movie Controller of Movie Actions
 @route('/api/')
 export class MovieController{
     constructor(

@@ -7,7 +7,10 @@ const movieService = new MovieService(
     new MovieMockRepository()
 );
 
+// Unit test of Movie Service
 describe('Movie Service', () => {
+
+    // Get movies
     describe('Get method of movie', () => {
         it('Get all movies', async () => {
             await movieService.GetAllMovies();
@@ -38,6 +41,8 @@ describe('Movie Service', () => {
             }
         })
     })
+
+    // Create new movie
     describe('Create method of movies', () =>{
         it('Create movie with all params', async () => {
             await movieService.PostMovie({
@@ -65,6 +70,7 @@ describe('Movie Service', () => {
         })
     });
 
+    // Update movie
     describe('Update method of movies', () =>{
         it('Update movie with all params', async () => {
             await movieService.UpdateMovie({
