@@ -22,6 +22,17 @@ export class MovieMssqlRepository implements MovieRepository{
         return null;
     }
 
+    public async GetMovieID(id: number): Promise<Movie[] | null>{
+        const pool = await connector;
+        const result = await pool.query`SELECT * FROM Movie WHERE Name LIKE '%' + ${id} + '%'`;
+
+        if (result.rowsAffected) {
+            return result.recordset;
+        }
+
+        return null;
+    }
+
     public async PostMovie(entry: Movie ): Promise<void> {
         const pool = await connector;
         
