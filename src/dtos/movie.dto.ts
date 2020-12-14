@@ -1,3 +1,4 @@
+// Resource, DTO data of Movie
 export interface MovieGetDto{
     ID: number;
     Name: string;

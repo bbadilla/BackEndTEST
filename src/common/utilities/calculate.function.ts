@@ -1,5 +1,6 @@
 import { Movie } from "../../services/repositories/domain/movie";
 
+// Calculate of recomendations
 export async function calculate(d1: number, d2:number, d3:number, d4:number, d5:number, result: Movie[] ){
     let avarage: string | any[] = [];
 
@@ -11,7 +12,7 @@ export async function calculate(d1: number, d2:number, d3:number, d4:number, d5:
         grade += result[i].Popularity * (d5/100);
 
         if(result[i].Favorite)
-            grade += d4;
+            grade += 20;
 
         avarage[i] = grade;
     }   

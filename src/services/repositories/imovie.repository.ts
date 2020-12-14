@@ -1,7 +1,8 @@
 import { Movie } from "./domain/movie";
 
-export interface MovieRepository{
-    // methods
+// Interface of Movie Repository
+export interface IMovieRepository{
+    // Methods
     GetAllMovies(): Promise<Movie[]>;
     GetMovie(name:string): Promise<Movie[] | null>
     GetMovieID(id: number): Promise<Movie[] | null>
