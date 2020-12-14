@@ -15,11 +15,21 @@ export class MovieController{
     // Get all movies
     @GET()
     public async GetAllMovies (req: Request, res: Response){
-        res.json({
-            'status': 200,
-            'message': 'Getting movies successfully',
-            'data': await this.movieService.GetAllMovies() as unknown as MovieGetDto
-        })
+
+        const result = await this.movieService.GetAllMovies();
+
+        if (result.length) {
+            res.json({
+                'status': 200,
+                'message': 'Getting movies successfully',
+                'data': result as unknown as MovieGetDto
+            })
+        } else {
+            res.json({
+                'status': 404,
+                'message': 'Error of getting movies',
+            })
+        }
     }
 
     // Get movie by name
@@ -27,63 +37,85 @@ export class MovieController{
     @GET()
     public async GetMovie (req: Request, res: Response){
         const name = req.params.name;
-        console.log(req.body);
-        res.json({
-            'status': 200,
-            'message': 'Get movies successfully',
-            'data': await this.movieService.GetMovie(name) as unknown as MovieGetDto
-        });
+        const result = await this.movieService.GetMovie(name) 
+        if (result.length) {
+            res.json({
+                'status': 200,
+                'message': 'Getting movies successfully',
+                'data': result as unknown as MovieGetDto
+            })
+        } else {
+            res.json({
+                'status': 204,
+                'message': '0 movies found',
+            })
+        }
     }
 
     // Add movie
     @route('add')
     @POST()
     public async PostMovie (req: Request, res: Response){
-        var params = req.body;
-        var post_params: MovieCreateDto = {
-            Name: params.Name,
-            Director: params.Director,
-            Year: params.Year,
-            Gender: params.Gender,
-            Language: params.Language,
-            Favorite: params.Favorite,
-            Community_Score: params.Community_Score,
-            IMDB: params.IMDB,
-            Style: params.Style,
-            MetaScore: params.MetaScore,
-            Popularity: params.Popularity,
-            Image: params.Image};
+        try{
+            var params = req.body;
+            var post_params: MovieCreateDto = {
+                Name: params.Name,
+                Director: params.Director,
+                Year: params.Year,
+                Gender: params.Gender,
+                Language: params.Language,
+                Favorite: params.Favorite,
+                Community_Score: params.Community_Score,
+                IMDB: params.IMDB,
+                Style: params.Style,
+                MetaScore: params.MetaScore,
+                Popularity: params.Popularity,
+                Image: params.Image};
 
-        await this.movieService.PostMovie(post_params);
-        res.json({
-            'status': 200,
-            'message': 'Adding movies successfully',
-        });
+            await this.movieService.PostMovie(post_params);
+            res.json({
+                'status': 200,
+                'message': 'Adding movies successfully',
+            });
+        } catch {
+            res.json({
+                'status': 404,
+                'message': 'Error of create movie',
+            });
+        }
     }
 
     // Update movie
     @route('modify')
     @PUT()
     public async UpdateMovie (req: Request, res: Response){
-        var params = req.body;
-        var put_params: MovieUpdateDto = {
-            ID: parseInt(params.ID),
-            Name: params.Name,
-            Director: params.Director,
-            Year: params.Year,
-            Gender: params.Gender,
-            Language: params.Language,
-            Favorite: params.Favorite,
-            IMDB: params.IMDB,
-            Style: params.Style,
-            MetaScore: params.MetaScore,
-            Image: params.Image
+        try {
+            var params = req.body;
+            var put_params: MovieUpdateDto = {
+                ID: parseInt(params.ID),
+                Name: params.Name,
+                Director: params.Director,
+                Year: params.Year,
+                Gender: params.Gender,
+                Language: params.Language,
+                Favorite: params.Favorite,
+                IMDB: params.IMDB,
+                Style: params.Style,
+                MetaScore: params.MetaScore,
+                Image: params.Image
+            }
+            await this.movieService.UpdateMovie(put_params);
+            res.json({
+                'status': 200,
+                'message': 'Modify Movie successfully',
+            });
+        } catch {
+            res.json({
+                'status': 404,
+                'message': 'Error of modify movie',
+            });
         }
-        await this.movieService.UpdateMovie(put_params);
-        res.json({
-            'status': 200,
-            'message': 'Modify Movie successfully',
-        });
+        
     }
 
     // Get movie by name
